@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 export const addAdminFunction = async function (req, res) {
   try {
     const { userId, name, email } = req.user;
+    res.status(200).json({ userId, name, email });
   } catch (error) {
     res
       .status(200)
