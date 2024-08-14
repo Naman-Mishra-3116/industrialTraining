@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import logo from '../../assets/images/logo.png'
 import { RiLinkedinFill } from 'react-icons/ri'
 import { AiFillYoutube, AiFillGithub, AiOutlineInstagram } from 'react-icons/ai'
+import About from './../About/About'
 
 
 function Footer() {
@@ -30,6 +31,13 @@ function Footer() {
         
     ];
 
+    const admin = [
+        {
+            path: "/admin/",
+            display: "Admin",
+        },
+    ];
+
     const quickLinks01 = [
         {
         path: "/home",
@@ -37,7 +45,7 @@ function Footer() {
         },
 
         {
-        path: "/",
+        path: "/home",
         display: "About Us",
         },
         
@@ -45,16 +53,11 @@ function Footer() {
         path: "/services", 
         display: "Services",
         },
-
-        {
-        path: "/",
-        display: "Blog",
-        },
     ];
 
     const quickLinks02 = [
         {
-        path: "/find-a-doctor",
+        path: "/doctors",
         display: "Find a Doctor",
         },
         
@@ -103,6 +106,13 @@ function Footer() {
                             {socialLinks.map((link,index)=> <Link to={link.path} key={index} className='w-9 h-9 border border-solid border-[#181A1E] rounded-full flex items-center justify-center group hover:bg-primaryColor hover:border-none'>{link.icon}</Link>)}
                         </div>
 
+                    </div>
+
+                    <div>
+                        <h2 className='text-[20px] leading-[30px] font-[700] mb-6 text-headingColor'>Admin Panel</h2>
+                        <ul>
+                            {admin.map((item,index)=> <li key={index} className='mb-4'><Link to={item.path} className='text-[16px] leading-7 font-[400] text-textColor'>{item.display}</Link></li>)}
+                        </ul>
                     </div>
 
                     <div>
