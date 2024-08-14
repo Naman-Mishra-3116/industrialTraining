@@ -21,7 +21,6 @@ function Appointments() {
             }
           );
           const { message, error, success, data } = await resp.json();
-          console.log(message, error, success, data);
           if (message === "Data delivered" && !error && success) {
             setData(data);
             setLoading(false);
@@ -42,7 +41,7 @@ function Appointments() {
     fetchData();
   }, []);
 
- console.log(error);
+  console.log(error);
 
   return (
     <div>
