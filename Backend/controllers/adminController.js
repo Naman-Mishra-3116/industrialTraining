@@ -3,7 +3,12 @@ import jwt from "jsonwebtoken";
 
 export const addAdminFunction = async function (req, res) {
   try {
-  } catch (error) {}
+    const { userId, name, email } = req.user;
+  } catch (error) {
+    res
+      .status(200)
+      .json({ message: error.message, success: false, error: true });
+  }
 };
 
 export const loginFunction = async function (req, res) {
@@ -22,7 +27,7 @@ export const loginFunction = async function (req, res) {
 
     const token = jwt.sign(
       { name: user.username, id: user._id, email: user.email },
-      "thisissecret",
+      process.env.JWT_SECRET,
       {
         expiresIn: "15d",
       }
@@ -37,6 +42,10 @@ export const loginFunction = async function (req, res) {
         email: user.email,
         id: user._id,
       });
+    } else {
+      res
+        .status(200)
+        .json({ message: "Invalid credentials", success: true, error: false });
     }
   } catch (err) {
     res.status(200).json({ message: err.message, success: false, error: true });
