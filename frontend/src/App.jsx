@@ -18,6 +18,10 @@ import DoctorsTable from "./components/Admin-Dashboard/DoctorsTable";
 import CreateAdmin from "./components/Admin-Dashboard/CreateAdmin";
 import Reset from "./components/Admin-Dashboard/Reset";
 import { Navigate } from "react-router-dom";
+import CheckoutSuccess from "./pages/Doctors/CheckoutSuccess";
+import Protected from "./routes/ProtectedRoute";
+import MyAccount from "./Dashboard/UserAccount/MyAccount";
+import Dashboard from "./Dashboard/DoctorAccount/Dashboard";
 
 const ProtectedRoute = ({
   element,
@@ -71,6 +75,26 @@ function App() {
         {
           path: "/services",
           element: <Services />,
+        },
+        {
+          path: "/checkout-success",
+          element: <CheckoutSuccess />,
+        },
+        {
+          path: "/users/profile/me",
+          element: (
+            <Protected allowedRoles={["patient"]}>
+              <MyAccount />
+            </Protected>
+          ),
+        },
+        {
+          path: "/doctors/profile/me",
+          element: (
+            <Protected allowedRoles={["doctor"]}>
+              <Dashboard />
+            </Protected>
+          ),
         },
       ],
     },

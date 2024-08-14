@@ -109,12 +109,12 @@ const Profile = ({ user }) => {
           />
         </div>
 
-        <PasswordInput
+        {/* <PasswordInput
           placeholder={"Password"}
           value={formData.password ?? ""}
           onChangePassed={handleInputChange}
           name={"password"}
-        />
+        /> */}
         <div className="mb-5">
           <input
             type="text"

@@ -9,13 +9,13 @@ import MyAccount from "../Dashboard/UserAccount/MyAccount";
 import Dashboard from "../Dashboard/DoctorAccount/Dashboard";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
-import Admin from '../components/Admin-Dashboard/Admin'
-import Reset from '../components/Admin-Dashboard/Reset'
-import AdminHome from '../components/Admin-Dashboard/AdminHome'
-import Users from '../components/Admin-Dashboard/Users'
-import Appointments from '../components/Admin-Dashboard/Appointments'
-import DoctorsTable from '../components/Admin-Dashboard/DoctorsTable'
-import CreateAdmin from '../components/Admin-Dashboard/CreateAdmin'
+import Admin from "../components/Admin-Dashboard/Admin";
+import Reset from "../components/Admin-Dashboard/Reset";
+import AdminHome from "../components/Admin-Dashboard/AdminHome";
+import Users from "../components/Admin-Dashboard/Users";
+import Appointments from "../components/Admin-Dashboard/Appointments";
+import DoctorsTable from "../components/Admin-Dashboard/DoctorsTable";
+import CreateAdmin from "../components/Admin-Dashboard/CreateAdmin";
 
 function Routers() {
   return (
@@ -35,22 +35,8 @@ function Routers() {
       <Route path="/appointments" element={<Appointments />} />
       <Route path="/doctors-list" element={<DoctorsTable />} />
       <Route path="/create-admin" element={<CreateAdmin />} />
-      <Route
-        path="/users/profile/me"
-        element={
-          <ProtectedRoute allowedRoles={["patient"]}>
-            <MyAccount />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/doctors/profile/me"
-        element={
-          <ProtectedRoute allowedRoles={["doctor"]}>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/users/profile/me" />
+      <Route path="/doctors/profile/me" element={null} />
     </Routes>
   );
 }

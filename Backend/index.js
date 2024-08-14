@@ -9,8 +9,8 @@ import { UserRouter } from "./Routes/user.js";
 import { DoctorRouter } from "./Routes/doctor.js";
 import { ReviewRouter } from "./Routes/review.js";
 import { AdminRouter } from "./Routes/admin.js";
+import { PaymentRouter } from "./Routes/booking.js";
 config();
-
 
 /**
  * @app = this is the instance of the express server we are creating that will be used for routing  the incoming request.
@@ -43,9 +43,8 @@ app.use("/api/v1/auth", AuthRouter);
 app.use("/api/v1/users", UserRouter);
 app.use("/api/v1/doctors", DoctorRouter);
 app.use("/api/v1/reviews", ReviewRouter);
-app.use("/api/v1/admin",AdminRouter);
-
-
+app.use("/api/v1/admin", AdminRouter);
+app.use("/api/v1/bookings", PaymentRouter);
 /**
  * @get router for handling the incoming test request
  */
