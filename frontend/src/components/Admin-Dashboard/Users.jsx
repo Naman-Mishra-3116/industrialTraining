@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import React from "react";
 import { Link } from "react-router-dom";
 
@@ -32,14 +31,6 @@ export default function Users() {
       </div>
     </div>
   );
-=======
-import React from 'react'
-
-function Users() {
-  return (
-    <div>Users</div>
-  )
->>>>>>> 7b8b3b5 (sfjdgjfs)
 }
 
-export default Users
+
