@@ -1,116 +1,145 @@
-import './App.css'
-import Layout from './layout/Layout'
-import { createBrowserRouter } from 'react-router-dom'
-import { RouterProvider } from 'react-router-dom'
-import RootElementForApp from './RootElementForApp'
-import Home from './pages/Home'
-import Login from './pages/Login'
-import Doctors from './pages/Doctors/Doctors'
-import DoctorDetails from './pages/Doctors/DoctorDetails'
-import Signup from './pages/Signup'
-import Contact from './pages/Contact'
-import Services from './pages/Services'
-import Admin from './components/Admin-Dashboard/Admin'
-import RootElementForAdmin from './RootElementForAdmin'
-import AdminHome from './components/Admin-Dashboard/AdminHome'
-import Users from './components/Admin-Dashboard/Users'
-import Appointments from './components/Admin-Dashboard/Appointments'
-import DoctorsTable from './components/Admin-Dashboard/DoctorsTable'
-import CreateAdmin from './components/Admin-Dashboard/CreateAdmin'
-import Reset from './components/Admin-Dashboard/Reset'
+import "./App.css";
+import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider } from "react-router-dom";
+import RootElementForApp from "./RootElementForApp";
+import Home from "./pages/Home";
+import Login from "./pages/Login";
+import Doctors from "./pages/Doctors/Doctors";
+import DoctorDetails from "./pages/Doctors/DoctorDetails";
+import Signup from "./pages/Signup";
+import Contact from "./pages/Contact";
+import Services from "./pages/Services";
+import Admin from "./components/Admin-Dashboard/Admin";
+import RootElementForAdmin from "./RootElementForAdmin";
+import AdminHome from "./components/Admin-Dashboard/AdminHome";
+import Users from "./components/Admin-Dashboard/Users";
+import Appointments from "./components/Admin-Dashboard/Appointments";
+import DoctorsTable from "./components/Admin-Dashboard/DoctorsTable";
+import CreateAdmin from "./components/Admin-Dashboard/CreateAdmin";
+import Reset from "./components/Admin-Dashboard/Reset";
+import { Navigate } from "react-router-dom";
+
+const ProtectedRoute = ({
+  element,
+  isAuthenticated,
+  redirectPath = "/admin/",
+}) => {
+  if (!isAuthenticated) {
+    return <Navigate to={redirectPath} replace />;
+  }
+
+  return element;
+};
 
 function App() {
-   
+  const adminData = JSON.parse(localStorage.getItem("adminData"));
+  const isAuthenticated = !!adminData?.id;
+
   const router = createBrowserRouter([
     {
-      path:"/",
-      element:<RootElementForApp/>,
-      children:[
+      path: "/",
+      element: <RootElementForApp />,
+      children: [
         {
-          index:true, element:<Home/>
+          index: true,
+          element: <Home />,
         },
         {
-          path:"/home",element:<Home/>
+          path: "/home",
+          element: <Home />,
         },
         {
-          path:"/login",element:<Login/>
+          path: "/login",
+          element: <Login />,
         },
         {
-          path:"/doctors", element:<Doctors/>
+          path: "/doctors",
+          element: <Doctors />,
         },
         {
-          path:"/doctors/:id", element:<DoctorDetails />
+          path: "/doctors/:id",
+          element: <DoctorDetails />,
         },
         {
-          path:"/register", element:<Signup />
+          path: "/register",
+          element: <Signup />,
         },
         {
-          path:"/contact", element:<Contact />
+          path: "/contact",
+          element: <Contact />,
         },
         {
-          path:"/services", element:<Services />
+          path: "/services",
+          element: <Services />,
         },
-
-        {/*       
-      <Route path="/admin-login" element={<Admin />} />
-      <Route path="/forgot-password" element={<Reset />} />
-      <Route path="/admin-home" element={<AdminHome />} />
-      <Route path="/users" element={<Users />} />
-      <Route path="/appointments" element={<Appointments />} />
-      <Route path="/doctors-list" element={<DoctorsTable />} />
-      <Route path="/create-admin" element={<CreateAdmin />} /> 
-      */
-    }
-    ]
+      ],
     },
     {
-      path:"/admin/",
-      element:<Admin />,
+      path: "/admin/",
+      element: <Admin />,
     },
     {
-      path:"/",
-      element:<RootElementForAdmin />,
-      children:[
+      path: "/forgot-password",
+      element: <Reset />,
+    },
+    {
+      path: "/",
+      element: <RootElementForAdmin />,
+      children: [
         {
-          path:"/admin-home",
-          element:<AdminHome />
+          path: "/admin-home",
+          element: (
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              element={<AdminHome />}
+            />
+          ),
         },
         {
-          path:"/users",
-          element:<Users />
+          path: "/users",
+          element: (
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              element={<Users />}
+            />
+          ),
         },
         {
-          path:"/appointments",
-          element:<Appointments />
+          path: "/appointments",
+          element: (
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              element={<Appointments />}
+            />
+          ),
         },
         {
-          path:"/doctors-list",
-          element:<DoctorsTable />
+          path: "/doctors-list",
+          element: (
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              element={<DoctorsTable />}
+            />
+          ),
         },
         {
-          path:"/admin-home",
-          element:<AdminHome />
+          path: "/createAdmin",
+          element: (
+            <ProtectedRoute
+              isAuthenticated={isAuthenticated}
+              element={<CreateAdmin />}
+            />
+          ),
         },
-        {
-          path:"/create-admin",
-          element:<CreateAdmin />
-        },
-        {
-          path:"/forgot-password",
-          element:<Reset />
-        }
-      ]
-    }
-  ])
+      ],
+    },
+  ]);
 
   return (
-    // <Layout />
     <>
-    <RouterProvider router={router}/>
+      <RouterProvider router={router} />
     </>
-
-    
-  )
+  );
 }
 
-export default App
+export default App;

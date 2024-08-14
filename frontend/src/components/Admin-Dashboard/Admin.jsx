@@ -55,9 +55,7 @@ export default function Admin() {
             id,
           })
         );
-        setTimeout(() => {
-          navigate("/admin-home");
-        }, 2000);
+        window.location.href = "/admin-home";
       } else if (
         success &&
         !error &&
@@ -66,7 +64,11 @@ export default function Admin() {
         toast.error(message);
         setLoading(false);
         return;
-      } else if (success===true && !error && message === "Invalid credentials") {
+      } else if (
+        success === true &&
+        !error &&
+        message === "Invalid credentials"
+      ) {
         toast.error(message);
         setLoading(false);
         return;

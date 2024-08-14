@@ -1,7 +1,6 @@
 import { useEffect, useRef } from "react";
-
 import { NavLink } from "react-router-dom";
-
+import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   {
@@ -20,11 +19,16 @@ const navLinks = [
     path: "/appointments",
     display: "Appointments",
   },
+  {
+    path: "/createAdmin",
+    display: "Add Admin",
+  },
 ];
 
 function AdminHeader() {
   const headerRef = useRef();
   const menuRef = useRef();
+  const navigate = useNavigate();
 
   const handleStickyHeader = () => {
     window.addEventListener("scroll", () => {
@@ -39,6 +43,11 @@ function AdminHeader() {
     });
   };
 
+  const onClickLogoutButton = function () {
+    localStorage.removeItem("adminData");
+    navigate("/admin/");
+  };
+
   useEffect(() => {
     handleStickyHeader();
 
@@ -51,12 +60,12 @@ function AdminHeader() {
     <header className="header flex items-center" ref={headerRef}>
       <div className="container">
         <div className="flex items-center justify-between">
-          {/*==========Logo========= */}
           <div>
-            <h1 className="text-2xl text-headingColor font-bold">Medicare Admin Dashboard</h1>
+            <h1 className="text-2xl text-headingColor font-bold">
+              Medicare Admin Dashboard
+            </h1>
           </div>
 
-          {/*==========menu========= */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
             <ul className="menu flex items-center gap-[2.7rem]">
               {navLinks.map((link, index) => (
@@ -73,6 +82,12 @@ function AdminHeader() {
                   </NavLink>
                 </li>
               ))}
+              <button
+                className="bg-primaryColor text-white py-2 px-6 font-[600] h-[44px] flex items-center justify-center rounded-[50px]"
+                onClick={onClickLogoutButton}
+              >
+                Logout
+              </button>
             </ul>
           </div>
         </div>

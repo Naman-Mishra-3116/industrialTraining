@@ -1,6 +1,10 @@
 import { Router } from "express";
-import { authenticate } from "../auth/verifyToken.js";
-import { loginFunction } from "../controllers/adminController.js";
+
+import {
+  loginFunction,
+  addAdmin,
+  getAllAdmin,
+} from "../controllers/adminController.js";
 import {
   availableBookings,
   availableDoctors,
@@ -9,10 +13,11 @@ import {
 
 const router = Router();
 
-router.post("/add", authenticate);
+router.post("/:id/add", addAdmin);
 router.post("/login", loginFunction);
 router.get("/:id/allUsers", availableUsers);
 router.get("/:id/allDoctors", availableDoctors);
 router.get("/:id/allBookings", availableBookings);
+router.get("/:id/allAdmins", getAllAdmin);
 
 export { router as AdminRouter };
