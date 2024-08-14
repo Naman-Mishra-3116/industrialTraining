@@ -1,0 +1,13 @@
+- Approve a Doctor with a specified Id.
+- Stripe Integration
+- Eye Button in password Input Field
+- Table Creation for all available Users 
+- Table creation for all avialable doctors
+- Table creation for all available bookings (appointments)
+- Table creation for all available admins
+- Make Routes Protected @done
+- Create Add Admin Api @done
+- Integrate Add admin api @done
+- add logout button in admin header @done
+- 
+

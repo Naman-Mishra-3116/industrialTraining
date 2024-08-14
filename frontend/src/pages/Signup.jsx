@@ -6,6 +6,7 @@ import { BASE_URL } from "../config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import HashLoader from "react-spinners/HashLoader";
+import PasswordInput from "../components/Services/PasswordInput";
 
 function Signup() {
   const navigate = useNavigate();
@@ -27,7 +28,6 @@ function Signup() {
 
   const handleFileInputChange = async (event) => {
     const file = event.target.files[0];
-    // later we will use cloudinary to upload images
     const data = await uploadImageToCloudinary(file);
     setPreviewURL(data.url);
     setSelectedFile(data.url);
@@ -120,17 +120,13 @@ function Signup() {
                 />
               </div>
 
-              <div className="mb-5">
-                <input
-                  type="password"
-                  placeholder="Password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-                  required
-                />
-              </div>
+              <PasswordInput
+                isRequired={true}
+                placeholder={"Password"}
+                value={formData.password}
+                onChangePassed={handleInputChange}
+                name={"password"}
+              />
 
               <div className="mb-5 flex items-center justify-between">
                 <label className="text-headingColor font-bold text-[16px] leading-7 ">

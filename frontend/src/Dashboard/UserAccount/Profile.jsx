@@ -5,9 +5,8 @@ import HashLoader from "react-spinners/HashLoader";
 import uploadImageToCloudinary from "../../utils/uploadCloudinary";
 import { BASE_URL } from "../../config";
 import { token } from "../../config";
-
+import PasswordInput from "../../components/Services/PasswordInput";
 const Profile = ({ user }) => {
-  const navigate = useNavigate();
   const [selectedFile, setSelectedFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [formData, setFormData] = useState({
@@ -110,16 +109,12 @@ const Profile = ({ user }) => {
           />
         </div>
 
-        <div className="mb-5">
-          <input
-            type="password"
-            placeholder="Password"
-            name="password"
-            value={formData.password ?? ""}
-            onChange={handleInputChange}
-            className="w-full pr-4 py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-          />
-        </div>
+        <PasswordInput
+          placeholder={"Password"}
+          value={formData.password ?? ""}
+          onChangePassed={handleInputChange}
+          name={"password"}
+        />
         <div className="mb-5">
           <input
             type="text"

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { useAuthHook } from "../context/AuthContext";
 import HashLoader from "react-spinners/HashLoader";
+import PasswordInput from "../components/Services/PasswordInput";
 
 function Login() {
   const navigate = useNavigate();
@@ -91,17 +92,14 @@ function Login() {
             />
           </div>
 
-          <div className="mb-5">
-            <input
-              type="password"
-              placeholder="Password"
-              name="password"
-              value={formData.password}
-              onChange={handleInputChange}
-              className="w-full py-3 border-b border-solid border-[#0066ff61] focus:outline-none focus:border-b-primaryColor text-[16px] leading-7 text-headingColor placeholder:text-textColor cursor-pointer"
-              required
-            />
-          </div>
+         
+          <PasswordInput
+            isRequired={true}
+            placeholder={"Password"}
+            value={formData.password}
+            onChangePassed={handleInputChange}
+            name={"password"}
+          />
 
           <div className="mt-7">
             <button
