@@ -118,14 +118,6 @@ export default function Admin() {
           </div>
 
           <p className="mt-5 text-textColor text-center">
-            <Link
-              to="/forgot-password"
-              className="text-primaryColor font-medium ml-1 "
-            >
-              Forgot Password
-            </Link>{" "}
-          </p>
-          <p className="mt-5 text-textColor text-center">
             <Link to="/" className="text-primaryColor font-medium ml-1 ">
               Home Page
             </Link>{" "}

@@ -13,10 +13,8 @@ import Admin from "./components/Admin-Dashboard/Admin";
 import RootElementForAdmin from "./RootElementForAdmin";
 import AdminHome from "./components/Admin-Dashboard/AdminHome";
 import Users from "./components/Admin-Dashboard/Users";
-import Appointments from "./components/Admin-Dashboard/Appointments";
 import DoctorsTable from "./components/Admin-Dashboard/DoctorsTable";
 import CreateAdmin from "./components/Admin-Dashboard/CreateAdmin";
-import Reset from "./components/Admin-Dashboard/Reset";
 import { Navigate } from "react-router-dom";
 import CheckoutSuccess from "./pages/Doctors/CheckoutSuccess";
 import Protected from "./routes/ProtectedRoute";
@@ -103,10 +101,6 @@ function App() {
       element: <Admin />,
     },
     {
-      path: "/forgot-password",
-      element: <Reset />,
-    },
-    {
       path: "/",
       element: <RootElementForAdmin />,
       children: [
@@ -125,15 +119,6 @@ function App() {
             <ProtectedRoute
               isAuthenticated={isAuthenticated}
               element={<Users />}
-            />
-          ),
-        },
-        {
-          path: "/appointments",
-          element: (
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              element={<Appointments />}
             />
           ),
         },

@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 
 const navLinks = [
   {
+    path: "/",
+    display: "Back To Application",
+  },
+  {
     path: "/admin-home",
     display: "Home",
   },
@@ -14,10 +18,6 @@ const navLinks = [
   {
     path: "/doctors-list",
     display: "Doctors",
-  },
-  {
-    path: "/appointments",
-    display: "Appointments",
   },
   {
     path: "/createAdmin",
@@ -62,7 +62,7 @@ function AdminHeader() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl text-headingColor font-bold">
-              Medicare Admin Dashboard
+              Admin Dashboard
             </h1>
           </div>
 

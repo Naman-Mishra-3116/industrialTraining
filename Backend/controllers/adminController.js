@@ -193,3 +193,154 @@ export const getAllAdmin = async (req, res) => {
       .json({ message: error.message, success: false, error: true });
   }
 };
+
+export const approveDoctorById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { doctorId, status } = req.body;
+    const isValid = await AdminUser.findOne({ _id: id });
+    if (isValid) {
+      const isDoctor = await DoctorSchema.find({ _id: doctorId });
+      if (isDoctor) {
+        const update = await DoctorSchema.findByIdAndUpdate(
+          { _id: doctorId },
+          {
+            $set: {
+              isApproved: status,
+            },
+          }
+        );
+        if (update) {
+          return res.status(200).json({
+            message: "Updated Successfully!",
+            error: false,
+            success: true,
+          });
+        } else {
+          return res.status(200).json({
+            message: "Something went wrong in updation",
+            error: true,
+            success: true,
+          });
+        }
+      } else {
+        res.status(200).json({
+          message: "Doctor is not avaialble",
+          error: true,
+          success: true,
+        });
+      }
+    } else {
+      return res.status(200).json({
+        message: "You are not authorized",
+        success: false,
+        error: true,
+      });
+    }
+  } catch (error) {
+    return res.status(200).json({
+      message: err.message,
+      success: false,
+      error: true,
+    });
+  }
+};
+
+export const deleteDoctorById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { doctorId } = req.body;
+    const isValid = await AdminUser.findOne({ _id: id });
+    if (isValid) {
+      const isDoctor = await DoctorSchema.find({ _id: doctorId });
+      if (isDoctor) {
+        const update = await DoctorSchema.findByIdAndDelete({ _id: doctorId });
+        if (update) {
+          return res.status(200).json({
+            message: "Deleted Successfully!",
+            error: false,
+            success: true,
+          });
+        } else {
+          return res.status(200).json({
+            message: "Something went wrong in updation",
+            error: true,
+            success: true,
+          });
+        }
+      } else {
+        res.status(200).json({
+          message: "Doctor is not avaialble",
+          error: true,
+          success: true,
+        });
+      }
+    } else {
+      return res.status(200).json({
+        message: "You are not authorized",
+        success: false,
+        error: true,
+      });
+    }
+  } catch (err) {
+    return res.status(200).json({
+      message: err.message,
+      success: false,
+      error: true,
+    });
+  }
+};
+
+export const deleteUserById = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const { userId } = req.body;
+    const isValid = await AdminUser.findOne({ _id: id });
+    if (isValid) {
+      const isDoctor = await UserSchema.find({ _id: userId });
+      if (isDoctor) {
+        const update = await UserSchema.findByIdAndDelete({ _id: userId });
+        if (update) {
+          return res.status(200).json({
+            message: "Deleted Successfully!",
+            error: false,
+            success: true,
+          });
+        } else {
+          return res.status(200).json({
+            message: "Something went wrong in updation",
+            error: true,
+            success: true,
+          });
+        }
+      } else {
+        res.status(200).json({
+          message: "User not available",
+          error: true,
+          success: true,
+        });
+      }
+    } else {
+      return res.status(200).json({
+        message: "You are not authorized",
+        success: false,
+        error: true,
+      });
+    }
+  } catch (err) {
+    return res.status(200).json({
+      message: err.message,
+      success: false,
+      error: true,
+    });
+  }
+};
+
+
+export const forgetPasswordEmailLink = async (req,res)=>{
+  try {
+    
+  } catch (error) {
+    
+  }
+}

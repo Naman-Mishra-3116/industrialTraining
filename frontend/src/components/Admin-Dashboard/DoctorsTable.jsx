@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import Error from "../Error/Error";
 import Loading from "../Loader/Loading";
 import { BASE_URL } from "../../config";
+import { toast } from "react-toastify";
+import { AiOutlineDelete } from "react-icons/ai";
 
 function DoctorsTable() {
   const adminData = JSON.parse(localStorage.getItem("adminData"));
@@ -42,20 +44,56 @@ function DoctorsTable() {
     fetchData();
   }, []);
 
-  const isApproved = (doctorId) => {
-    const doctor = data.find((doc) => doc.id === doctorId);
-  
-    return doctor ? doctor.isApproved : false;
+  const handleApprove = async (id, status) => {
+    try {
+      const doctorId = id;
+      const adminId = adminData.id;
+      const response = await fetch(
+        `${BASE_URL}/admin/${adminId}/approveDoctor`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ doctorId, status }),
+        }
+      );
+      const { message, error, success } = await response.json();
+      if (success && !error && message === "Updated Successfully!") {
+        toast.success(message);
+        window.location.href = "http://localhost:5173/doctors-list";
+      } else if (error && !success) {
+        throw new Error(message);
+      }
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
-  const handleApprove = (index) => {
-    const updatedData = data.map((doctor, i) => {
-      if (i === index) {
-        return { ...doctor, isApproved: isApproved(doctor.id) };
+  const handleDelete = async (id) => {
+    try {
+      const doctorId = id;
+      const adminId = adminData.id;
+      const response = await fetch(
+        `${BASE_URL}/admin/${adminId}/deleteDoctor`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ doctorId }),
+        }
+      );
+      const { message, error, success } = await response.json();
+      if (success && !error && message === "Deleted Successfully!") {
+        toast.success(message);
+        window.location.href = "http://localhost:5173/doctors-list";
+      } else if (error && !success) {
+        throw new Error(message);
       }
-      return doctor;
-    });
-    setData(updatedData);
+    } catch (err) {
+      toast.error(err.message);
+    } 
   };
 
   return (
@@ -67,11 +105,21 @@ function DoctorsTable() {
           <table className="min-w-max w-full table-auto border-collapse border border-gray-200">
             <thead>
               <tr className="bg-sky-200 text-gray-800 uppercase text-sm leading-normal">
-                <th className="py-3 px-6 text-left border-b border-gray-200">Name</th>
-                <th className="py-3 px-6 text-left border-b border-gray-200">Specialization</th>
-                <th className="py-3 px-6 text-left border-b border-gray-200">Experience</th>
-                <th className="py-3 px-6 text-left border-b border-gray-200">Contact</th>
-                <th className="py-3 px-6 text-left border-b border-gray-200">Status</th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">
+                  Name
+                </th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">
+                  Specialization
+                </th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">
+                  Experience
+                </th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">
+                  Contact
+                </th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">
+                  Status
+                </th>
               </tr>
             </thead>
             <tbody className="text-gray-700 text-sm font-light">
@@ -81,23 +129,48 @@ function DoctorsTable() {
                   className="border-b border-gray-200 hover:bg-gray-50"
                 >
                   <td className="py-3 px-6 text-left">{item.name}</td>
-                  <td className="py-3 px-6 text-left">{item.specialization}</td>
-                  <td className="py-3 px-6 text-left">{item.experience} years</td>
-                  <td className="py-3 px-6 text-left">{item.contact}</td>
                   <td className="py-3 px-6 text-left">
-                    {item.isApproved ? (
-                      <span className="text-green-500 font-bold">✔️</span>
+                    {item.specialization
+                      ? item.specialization
+                      : "Not Available"}
+                  </td>
+                  <td className="py-3 px-6 text-left">
+                    {item.experiences[0].position} at{" "}
+                    {item.experiences[0].hospital}
+                  </td>
+                  <td className="py-3 px-6 text-left">{item.phone}</td>
+                  <td className="py-3 px-6 text-left flex justify-between">
+                    {item.isApproved === "approved" ? (
+                      <div className="text-green-500 font-bold flex gap-5">
+                        <span>✔️</span>
+                        <span className="w-[150px]">
+                          <button
+                            onClick={() => handleApprove(item._id, "pending")}
+                            className="bg-red-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                          >
+                            Mark Pending
+                          </button>
+                        </span>
+                      </div>
                     ) : (
-                      <div>
-                        <button
-                          onClick={() => handleApprove(index)}
-                          className="bg-blue-500 text-white px-4 py-1 rounded hover:bg-blue-600"
-                        >
-                          Approve
-                        </button>
-                        <span className="ml-2 text-yellow-500">Pending</span>
+                      <div className="text-green-500 font-bold flex gap-5">
+                        <span>❌</span>
+                        <span>
+                          <button
+                            onClick={() => handleApprove(item._id, "approved")}
+                            className="bg-green-500 text-white px-4 py-1 rounded hover:bg-blue-600"
+                          >
+                            Approve
+                          </button>
+                        </span>
                       </div>
                     )}
+                    <button
+                      className="bg-red-600 p-2 rounded-full text-white text-[18px] cursor-pointer"
+                      onClick={() => handleDelete(item._id)}
+                    >
+                      <AiOutlineDelete />
+                    </button>
                   </td>
                 </tr>
               ))}
