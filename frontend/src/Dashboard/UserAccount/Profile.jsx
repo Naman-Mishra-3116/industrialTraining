@@ -108,13 +108,6 @@ const Profile = ({ user }) => {
             readOnly
           />
         </div>
-
-        {/* <PasswordInput
-          placeholder={"Password"}
-          value={formData.password ?? ""}
-          onChangePassed={handleInputChange}
-          name={"password"}
-        /> */}
         <div className="mb-5">
           <input
             type="text"

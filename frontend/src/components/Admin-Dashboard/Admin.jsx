@@ -125,6 +125,11 @@ export default function Admin() {
               Forgot Password
             </Link>{" "}
           </p>
+          <p className="mt-5 text-textColor text-center">
+            <Link to="/" className="text-primaryColor font-medium ml-1 ">
+              Home Page
+            </Link>{" "}
+          </p>
         </form>
       </div>
     </section>

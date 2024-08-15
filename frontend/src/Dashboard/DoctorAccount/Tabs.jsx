@@ -3,7 +3,6 @@ import { BiMenu } from "react-icons/bi";
 import { useAuthHook } from "../../context/AuthContext";
 import { useNavigate } from "react-router-dom";
 
-
 const Tabs = ({ tab, setTab }) => {
   const { dispatch } = useAuthHook();
   const navigate = useNavigate();
@@ -11,7 +10,7 @@ const Tabs = ({ tab, setTab }) => {
     dispatch({
       type: "LOGOUT",
     });
-    navigate("/")
+    navigate("/");
   };
   return (
     <div>
@@ -61,9 +60,6 @@ const Tabs = ({ tab, setTab }) => {
             onClick={handleLogOut}
           >
             Logout
-          </button>
-          <button className="w-full bg-red-600 mt-4 text-white p-3 text-[16px] leading-7 rounded-md">
-            Delete account
           </button>
         </div>
       </div>

@@ -98,12 +98,12 @@ export const getUserProfile = async (req, res) => {
 
 export const getMyAppointments = async (req, res) => {
   try {
-    const bookings = await Booking.find({ user: req.uesrId });
-    const doctorIds = bookings.map((el) => el.doctor.id);
+    console.log(req.userId);
+    const bookings = await Booking.find({ user: req.userId });
+    const doctorIds = bookings.map((el) => el.doctor);
     const doctors = await DoctorSchema.find({ _id: { $in: doctorIds } }).select(
       "-password"
     );
-
     res.status(200).json({
       message: "Appointments recieved",
       success: true,

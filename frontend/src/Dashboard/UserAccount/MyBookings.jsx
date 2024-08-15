@@ -11,6 +11,7 @@ const MyBookings = () => {
     loading,
     error,
   } = useFetchData(`${BASE_URL}/users/appointments/my-appointments`);
+
   
   return (
     <div>
@@ -21,7 +22,7 @@ const MyBookings = () => {
         <div className="grid grid-cols-1  lg:grid-cols-2 gap-5">
           {appoinements.length > 0 ? (
             appoinements.map((item) => {
-              return <DoctorCard key={docotor._id} doctor={item} />;
+              return <DoctorCard key={item._id} doctor={item} />;
             })
           ) : (
             <h2 className="mt-5 text-center text-primaryColor leading-7 text-[17px] font-5">

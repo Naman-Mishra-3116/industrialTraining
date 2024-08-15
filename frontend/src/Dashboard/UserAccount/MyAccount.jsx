@@ -62,9 +62,6 @@ const MyAccount = () => {
                 >
                   Logout
                 </button>
-                <button className="w-full bg-red-600 mt-4 text-white p-3 text-[16px] leading-7 rounded-md">
-                  Delete account
-                </button>
               </div>
             </div>
             <div className="md:col-span-2 md:px-[30px]">
