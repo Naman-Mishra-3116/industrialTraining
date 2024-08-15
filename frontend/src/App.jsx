@@ -29,126 +29,45 @@ const ProtectedRoute = ({
   if (!isAuthenticated) {
     return <Navigate to={redirectPath} replace />;
   }
-
   return element;
 };
 
 function App() {
   const adminData = JSON.parse(localStorage.getItem("adminData"));
   const isAuthenticated = !!adminData?.id;
-
   const router = createBrowserRouter([
     {
       path: "/",
       element: <RootElementForApp />,
       children: [
-        {
-          index: true,
-          element: <Home />,
-        },
-        {
-          path: "/home",
-          element: <Home />,
-        },
-        {
-          path: "/login",
-          element: <Login />,
-        },
-        {
-          path: "/doctors",
-          element: <Doctors />,
-        },
-        {
-          path: "/doctors/:id",
-          element: <DoctorDetails />,
-        },
-        {
-          path: "/register",
-          element: <Signup />,
-        },
-        {
-          path: "/contact",
-          element: <Contact />,
-        },
-        {
-          path: "/services",
-          element: <Services />,
-        },
-        {
-          path: "/checkout-success",
-          element: <CheckoutSuccess />,
-        },
-        {
-          path: "/users/profile/me",
-          element: (
-            <Protected allowedRoles={["patient"]}>
-              <MyAccount />
-            </Protected>
-          ),
-        },
-        {
-          path: "/doctors/profile/me",
-          element: (
-            <Protected allowedRoles={["doctor"]}>
-              <Dashboard />
-            </Protected>
-          ),
-        },
+        { index: true, element: <Home /> },
+        { path: "/home", element: <Home /> },
+        { path: "/login", element: <Login /> },
+        { path: "/doctors",element: <Doctors />},
+        { path: "/doctors/:id", element: <DoctorDetails />,  },
+        { path: "/register", element: <Signup /> },
+        { path: "/contact",element: <Contact />, },
+        { path: "/services", element: <Services />, },
+        { path: "/checkout-success",element: <CheckoutSuccess />,},
+        { path: "/users/profile/me", element: (<Protected allowedRoles={["patient"]}><MyAccount /></Protected>)},
+        { path: "/doctors/profile/me",  element: (  <Protected allowedRoles={["doctor"]}>  <Dashboard /> </Protected> ),  },
       ],
     },
-    {
-      path: "/admin/",
-      element: <Admin />,
-    },
-    {
-      path: "/",
-      element: <RootElementForAdmin />,
+    { path: "/admin/",element: <Admin />},
+    { path: "/", element: <RootElementForAdmin />,
       children: [
-        {
-          path: "/admin-home",
-          element: (
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              element={<AdminHome />}
-            />
-          ),
-        },
-        {
-          path: "/users",
-          element: (
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              element={<Users />}
-            />
-          ),
-        },
-        {
-          path: "/doctors-list",
-          element: (
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              element={<DoctorsTable />}
-            />
-          ),
-        },
-        {
-          path: "/createAdmin",
-          element: (
-            <ProtectedRoute
-              isAuthenticated={isAuthenticated}
-              element={<CreateAdmin />}
-            />
-          ),
-        },
+        { path: "/admin-home",element: (<ProtectedRoute isAuthenticated={isAuthenticated}element={<AdminHome />} /> ), },
+        { path: "/users", element: ( <ProtectedRoute isAuthenticated={isAuthenticated} element={<Users />} /> ),},
+        { path: "/doctors-list",element: ( <ProtectedRoute isAuthenticated={isAuthenticated}element={<DoctorsTable />}/> ),},
+        { path: "/createAdmin",element: (  <ProtectedRoute isAuthenticated={isAuthenticated} element={<CreateAdmin />} /> ),  },
       ],
     },
   ]);
 
-  return (
-    <>
-      <RouterProvider router={router} />
-    </>
-  );
+  return <RouterProvider router={router} />
 }
-
 export default App;
+
+
+
+

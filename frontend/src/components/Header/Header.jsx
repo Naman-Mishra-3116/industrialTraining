@@ -43,7 +43,6 @@ function Header() {
 
   useEffect(() => {
     handleStickyHeader();
-
     return () => window.removeEventListener("scroll", handleStickyHeader);
   });
 
@@ -53,12 +52,10 @@ function Header() {
     <header className="header flex items-center" ref={headerRef}>
       <div className="container">
         <div className="flex items-center justify-between">
-          {/*==========Logo========= */}
           <div>
-            <img src={logo} alt="" />
+            <img src={logo} alt="" />{" "}
           </div>
 
-          {/*==========menu========= */}
           <div className="navigation" ref={menuRef} onClick={toggleMenu}>
             <ul className="menu flex items-center gap-[2.7rem]">
               {navLinks.map((link, index) => (
@@ -77,7 +74,6 @@ function Header() {
               ))}
             </ul>
           </div>
-          {/*===========nav right================*/}
           <div className="flex items-center gap-4">
             {user && token ? (
               <div className={``}>
