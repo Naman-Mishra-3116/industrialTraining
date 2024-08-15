@@ -44,15 +44,32 @@ function Users() {
   }, []);
 
   return (
-    <div>
+    <div className="flex justify-center items-center mt-10">
       {error && <Error errMessage={error} />}
       {loading && <Loading />}
-      {!error && !loading && (
-        <div>
-          {data &&
-            data.map((item, index) => {
-              return <div key={index}>{item.name}</div>;
-            })}
+      {!error && !loading && data.length > 0 && (
+        <div className="overflow-x-auto w-[1180px]">
+          <table className="min-w-max w-full table-auto border-collapse border border-gray-200">
+            <thead>
+              <tr className="bg-sky-200 text-gray-800 uppercase text-sm leading-normal">
+                <th className="py-3 px-6 text-left border-b border-gray-200">Name</th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">Email</th>
+                <th className="py-3 px-6 text-left border-b border-gray-200">Role</th>
+              </tr>
+            </thead>
+            <tbody className="text-gray-700 text-sm font-light">
+              {data.map((item, index) => (
+                <tr
+                  key={index}
+                  className="border-b border-gray-200 hover:bg-gray-50"
+                >
+                  <td className="py-3 px-6 text-left">{item.name}</td>
+                  <td className="py-3 px-6 text-left">{item.email}</td>
+                  <td className="py-3 px-6 text-left">{item.role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       )}
     </div>
